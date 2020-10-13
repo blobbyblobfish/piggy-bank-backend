@@ -14,6 +14,7 @@ app.use(cors());
 
 // Define Routes
 app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/users', require('./routes/api/users'));
 
 // Error catching route
 app.use((error, req, res, next) => {

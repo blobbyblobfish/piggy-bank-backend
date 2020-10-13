@@ -46,7 +46,6 @@ router.post(
     }
 
     const { email, password } = req.body;
-
     try {
       let user = await User.findOne({ email });
 
@@ -54,14 +53,8 @@ router.post(
         return res
           .status(400)
           .json({ errors: [{ msg: 'Invalid Credentials' }] });
-      } else if (!user.enabled) {
-        return res.status(403).json({
-          errors: [
-            { msg: 'User doesnt have permission to login to platform yet.' }
-          ]
-        });
       }
-
+      console.log(user);
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
@@ -73,8 +66,7 @@ router.post(
       const payload = {
         user: {
           id: user.id,
-          role: user.role,
-          admin: user.admin
+          role: user.role
         }
       };
 
